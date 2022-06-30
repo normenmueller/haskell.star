@@ -1,9 +1,11 @@
+{-# LANGUAGE OverloadedStrings #-}
 module Data
     ( copyright
-    , owner
+    , mockDb
     ) where
 
 import Control.Monad.Trans.State
+import Data.Maybe
 import Data.SemVer
 import Data.Time.Calendar
 import Types
@@ -11,18 +13,31 @@ import Types
 -- Copyright information
 --
 -- @
--- { "version": "0.0.0"
--- , "authors": [{
+-- { "version": "0.1.0"
+-- , "author": {
 --       "name": "Normen Müller",
 --       "email": "normen.mueller@gmail.com",
 --       "date" : "1976-06-16"
---    }]
+--    }
 -- }
 -- @
 copyright :: Info
-copyright = Info initial [owner]
+copyright = Info "0.1.0" owner
 
-type Database = State [(Integer, User)] Integer
-
+-- | Copyright holder
+owner :: User
 owner =
-    User "Normen Müller" "normen.mueller@gmail.com" (fromGregorian 1976 6 16)
+    User
+        "Normen Müller"
+        "normen.mueller@gmail.com"
+        (Just $ fromGregorian 1976 6 16)
+
+-- | A user identifier.
+type UserId = Integer
+
+-- | A database.
+type Database = State [(UserId, User)] Integer
+
+-- | Primitive database mock-up.
+mockDb :: Database
+mockDb = undefined

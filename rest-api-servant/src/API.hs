@@ -3,12 +3,27 @@
 module API where
 
 import Servant.API
+import Servant.HTML.Lucid
 import Types
 
-type API = InfoAPI :<|> UserAPI
+type API
+    =    InfoAPI
+    :<|> UserAPI
 
-type InfoAPI = Get '[JSON] Info
+type InfoAPI
+      -- Get copyright information
+    = Get '[JSON, HTML] Info
 
+-- | User API
+--
+-- Note: Each occurrence of 'QueryParam', 'Capture', and 'ReqBody' combinators
+-- in an endpoint makes the corresponding handler receive an argument of the
+-- appropriate type automatically. You don’t have to worry about manually
+-- looking up URL captures or query string parameters, or decoding/encoding data
+-- from/to JSON. Never.
+--
+-- Hint: How does servant know to decode, e.g., the 'Integer' from the URL?
+-- Keyword: FromHttpApiData and ToHttpApiData. 
 type UserAPI
          -- Create user
     =    "users" :> ReqBody '[JSON] User
