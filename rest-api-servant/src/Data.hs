@@ -22,7 +22,7 @@ import Types
 copyright :: Info
 copyright = Info initial [owner]
 
+type Database = State [(Integer, User)] Integer
+
 owner =
     User "Normen Müller" "normen.mueller@gmail.com" (fromGregorian 1976 6 16)
-
-type Database = State [(Integer, User)] Integer

@@ -10,11 +10,12 @@ import Server
 main :: IO ()
 main = run 8081 app
 
-api :: Proxy API
-api = Proxy
-
 -- 'serve' comes from servant and hands you a WAI Application,
 -- which you can think of as an "abstract" web application,
 -- not yet a webserver.
 app :: Application
 app = serve api server
+
+api :: Proxy API
+api = Proxy
+

@@ -5,7 +5,7 @@ module API where
 import Servant.API
 import Types
 
-type API = InfoAPI -- :<|> UserAPI
+type API = InfoAPI :<|> UserAPI
 
 type InfoAPI = Get '[JSON] Info
 
@@ -20,7 +20,7 @@ type UserAPI
     :<|> "users" :> Capture "id" Integer
                  :> ReqBody '[JSON] User
                  :> Put '[JSON] User
-         -- Query users
+         -- List users
     :<|> "users" :> QueryParam "status" Status
                  :> QueryParam "sortby" SortBy
                  :> Get '[JSON] [User]
