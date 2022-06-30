@@ -5,7 +5,7 @@ module API where
 import Servant.API
 import Types
 
-type API = InfoAPI :<|> UserAPI
+type API = InfoAPI -- :<|> UserAPI
 
 type InfoAPI = Get '[JSON] Info
 

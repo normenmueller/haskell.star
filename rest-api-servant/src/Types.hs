@@ -1,6 +1,5 @@
 {-# LANGUAGE DeriveGeneric #-}
 {-# LANGUAGE OverloadedStrings #-}
-{-# LANGUAGE ScopedTypeVariables #-}
 module Types
     ( Info(..)
     , Status(..)
@@ -29,10 +28,9 @@ instance ToJSON Info where
 
 instance FromJSON Info where
     parseJSON =
-        withObject "Info" $ \o -> do
-            (v :: String) <- o .: "version"
-            as <- o .: "authors"
-            return $ Info (fromString v) as
+        withObject "Info" $ \o -> Info
+            <$> (fromString <$> (o .: "version"))
+            <*> o .: "authors"
 
 instance IsString Version where
     fromString s =
@@ -40,20 +38,23 @@ instance IsString Version where
             Left err -> error err
             Right ver -> ver
 
+-- | Status
 data Status
     = Active
     | Inactive
     | All
 
+-- | SortBy
 data SortBy
     = Date
     | Name
 
+-- | User
 data User =
     User
         { name :: String
         , email :: String
-        , date :: (Integer, Int, Int)
+        , date :: Day
         }
     deriving (Eq, Show, Generic)
 

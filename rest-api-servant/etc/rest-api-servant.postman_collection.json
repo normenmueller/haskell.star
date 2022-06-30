@@ -5,5 +5,14 @@
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "2796"
 	},
-	"item": []
+	"item": [
+		{
+			"name": "GET /",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
 }

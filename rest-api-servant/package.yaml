@@ -11,9 +11,12 @@ dependencies:
   - aeson
   - semver
   - servant
+  - servant-server
   - text
   - time
   - transformers
+  - wai
+  - warp
 library:
   source-dirs: src
 executables:
@@ -22,6 +25,7 @@ executables:
     source-dirs:         app
     ghc-options:
       - -rtsopts
+      - -threaded
       - -with-rtsopts=-N
     # cf. https://github.com/commercialhaskell/stack/issues/5439
     when:

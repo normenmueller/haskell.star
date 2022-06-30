@@ -5,6 +5,7 @@ module Data
 
 import Control.Monad.Trans.State
 import Data.SemVer
+import Data.Time.Calendar
 import Types
 
 -- Copyright information
@@ -14,13 +15,14 @@ import Types
 -- , "authors": [{
 --       "name": "Normen Müller",
 --       "email": "normen.mueller@gmail.com",
---       "date" : [2022, 1, 1]
+--       "date" : "1976-06-16"
 --    }]
 -- }
 -- @
 copyright :: Info
 copyright = Info initial [owner]
 
-owner = User "Normen Müller" "normen.mueller@gmail.com" (2022, 01, 01)
+owner =
+    User "Normen Müller" "normen.mueller@gmail.com" (fromGregorian 1976 6 16)
 
 type Database = State [(Integer, User)] Integer
