@@ -19,5 +19,8 @@ stack --silent unpack typed-process --to ${LIB}
 stack --silent unpack unordered-containers --to ${LIB}
 stack --silent unpack vector --to ${LIB}
 
+stack --silent unpack semver-0.4.0 --to ${LIB}
+stack --silent unpack servant-0.19 --to ${LIB}
+
 if [ -f ${DIR}/tags ]; then rm ${DIR}/tags; fi
 hasktags -L --ctags ${DIR}/src/ ${LIB}
