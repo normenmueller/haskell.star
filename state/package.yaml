@@ -1,0 +1,52 @@
+name:                state
+version:             0.1.0
+github:              "normenmueller/state"
+license:             BSD3
+author:              "Normen Müller"
+maintainer:          "normen.mueller@gmail.com"
+copyright:           "(c) 2022 Normen Müller"
+
+extra-source-files:
+- README.md
+- HISTORY.md
+
+# Metadata used when publishing your package
+# synopsis:            Short description of your package
+# category:            Simple
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/normenmueller/state#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+
+library:
+  source-dirs: src
+
+executables:
+  state-exe:
+    main:                Main.hs
+    source-dirs:         app
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    # cf. https://github.com/commercialhaskell/stack/issues/5439
+    when:
+      - condition: false
+        other-modules: Paths_state
+    dependencies:
+    - state
+
+tests:
+  state-test:
+    main:                Spec.hs
+    source-dirs:         test
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - state
