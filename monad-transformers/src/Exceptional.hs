@@ -18,7 +18,7 @@ instance Exception Err
 -- |Effect.
 type Eff a = ExceptT Err IO a
 
--- |Crafted `>>=` for `IO (Either Err a)`. 
+-- |Crafted `>>=` for `IO (Either Err a)`.
 bindExceptT ::
        IO (Either Err a) -> (a -> IO (Either Err b)) -> IO (Either Err b)
 bindExceptT x f =
@@ -26,7 +26,7 @@ bindExceptT x f =
         Left err -> return $ Left err
         Right val -> f val
 
-readFile' :: FilePath -> Eff String 
+readFile' :: FilePath -> Eff String
 readFile' = liftIO . readFile
 
 writeFile' :: FilePath -> String -> Eff ()

@@ -37,7 +37,8 @@ succ'' lma = do
     return $ 1 + a
 
 -- | 'run' lässt, wenn man dann mit allen *effectful computations* fertig ist,
--- die Transformer "laufen".
+-- den Transformer (Stack) "laufen", sprich führt die kombinierte Berechnung
+-- aus,  extrahiert den resultierenden Wert und liefert dieses zurück.
 --
 -- Man muss sich vorstellen, die ganzen Berechnungen über wurde ausschlißlich
 -- *direkt* mit Monad Transformer handtiert, jedoch keine Tranformation
@@ -59,12 +60,12 @@ succ'' lma = do
 run :: Eff a -> IO (Maybe a)
 run = runMaybeT
 
-type Env = Integer
-type ST = Integer
-
 -- | Wenn man nun noch mehrere Monaden kombinieren möchte, sprich, wenn man nun
 -- noch mehrere Monad Transformer mit einander kombinieren möchte, dann ist mtl
 -- äusserst *convient*, damit nicht das ganze *lifting* händisch ausführen muss.
+type Env = Integer
+type ST = Integer
+
 type Eff2 a = ReaderT Env (StateT ST (MaybeT IO)) a
 
 inc :: Num a => Eff2 a -> Eff2 a
