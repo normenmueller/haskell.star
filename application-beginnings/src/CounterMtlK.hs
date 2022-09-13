@@ -31,7 +31,7 @@ runProgram' p s c = runStateT (runReaderT p c) s
 -- BUT, with 'counter' utilizing 'MonadCounter', we do not need to change the
 -- implementation of 'counter'.
 
--- An interface that describes the effects our program can have in a very
+-- An interface that describes the effects, our program can have, in a very
 -- general way. I.e. it does not matter how the Tx stack is arranged. 'ReaderT r
 -- (StateT ...) a' or 'StateT s (Reader T ...) a'. The general interface just
 -- describes the capabilities of the Tx stack, but not the concrete structure!

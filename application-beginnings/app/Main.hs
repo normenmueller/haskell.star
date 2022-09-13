@@ -10,13 +10,13 @@ import Util
 main :: IO ()
 main = do
     config <- getConfig
-    -- With transformers only and lifting
+    -- With transformers and w/ lifting
     void $ Tx.runProgram Tx.counter initialState config
     putStrLn "---"
     -- With MTL and w/o lifting
     void $ Mtl.runProgram Mtl.counter initialState config
     -- XXX void $ Mtl.runProgram' Mtl.counter initialState config
     putStrLn "---"
-    -- With MTL and with general interface specification via 'ConstraintKinds'
+    -- With MTL and w/ general interface specification via 'ConstraintKinds'
     void $ MtlK.runProgram MtlK.counter initialState config
     void $ MtlK.runProgram' MtlK.counter initialState config
