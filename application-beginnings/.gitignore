@@ -1,9 +1,0 @@
-*~
-*.iml
-*.cabal
-.idea/
-.lib/
-.stack-work/
-out/
-tags
-application-beginnings.cabal
