@@ -1,6 +1,6 @@
 {-# LANGUAGE PartialTypeSignatures #-}
 {-# LANGUAGE ScopedTypeVariables #-}
-module Examples.StateA where
+module Examples.State where
 
 -- cf. All About Monads
 
