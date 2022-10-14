@@ -3,6 +3,7 @@
 module Examples.StateT where
 
 --import Control.Monad.Trans.State
+import Control.Monad.IO.Class
 import Control.Monad.Trans.Class
 import Data.Bifunctor
 import Data.Functor.Identity
@@ -36,6 +37,9 @@ instance MonadTrans (StateT s) where
     lift m = StateT $ \s -> do
         a <- m
         return (a, s)
+
+instance MonadIO m => MonadIO (StateT s m) where
+    liftIO = lift . liftIO
 
 type State s a = StateT s Identity a
 

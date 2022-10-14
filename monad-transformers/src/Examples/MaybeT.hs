@@ -1,5 +1,6 @@
 module Examples.MaybeT where
 
+import Control.Monad.IO.Class
 import Control.Monad.Trans.Class
 
 newtype MaybeT m a =
@@ -25,3 +26,6 @@ instance Monad m => Monad (MaybeT m) where
 
 instance MonadTrans MaybeT where
     lift = MaybeT . fmap Just
+
+instance MonadIO m => MonadIO (MaybeT m) where
+    liftIO = lift . liftIO

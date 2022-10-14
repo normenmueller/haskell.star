@@ -1,5 +1,6 @@
 module Examples.ReaderT where
 
+import Control.Monad.IO.Class
 import Control.Monad.Trans.Class
 
 newtype ReaderT r m a =
@@ -27,3 +28,6 @@ instance Monad m => Monad (ReaderT r m) where
 
 instance MonadTrans (ReaderT r) where
     lift ma = ReaderT $ const ma 
+
+instance MonadIO m => MonadIO (ReaderT r m) where
+    liftIO = lift . liftIO

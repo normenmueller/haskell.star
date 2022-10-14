@@ -1,5 +1,6 @@
 module Examples.EitherT where
 
+import Control.Monad.IO.Class
 import Control.Monad.Trans.Class
 
 newtype EitherT e m a =
@@ -25,6 +26,9 @@ instance Monad m => Monad (EitherT e m) where
 
 instance MonadTrans (EitherT e) where
     lift = EitherT . fmap Right
+
+instance MonadIO m => MonadIO (EitherT e m) where
+    liftIO = lift . liftIO
 
 swapEitherT :: Functor m => EitherT e m a -> EitherT a m e
 swapEitherT (EitherT mma) = EitherT $ go <$> mma
