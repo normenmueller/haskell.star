@@ -1,4 +1,4 @@
-module Examples.ReaderT where
+module Crafted.ReaderT where
 
 import Control.Monad.IO.Class
 import Control.Monad.Trans.Class

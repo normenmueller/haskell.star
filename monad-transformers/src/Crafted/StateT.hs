@@ -1,6 +1,6 @@
 {-# LANGUAGE PartialTypeSignatures #-}
 {-# LANGUAGE ScopedTypeVariables #-}
-module Examples.StateT where
+module Crafted.StateT where
 
 --import Control.Monad.Trans.State
 import Control.Monad.IO.Class

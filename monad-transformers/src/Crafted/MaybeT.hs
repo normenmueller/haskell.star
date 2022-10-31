@@ -1,4 +1,4 @@
-module Examples.MaybeT where
+module Crafted.MaybeT where
 
 import Control.Monad.IO.Class
 import Control.Monad.Trans.Class

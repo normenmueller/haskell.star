@@ -1,4 +1,4 @@
-module Examples.EitherT where
+module Crafted.EitherT where
 
 import Control.Monad.IO.Class
 import Control.Monad.Trans.Class

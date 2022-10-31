@@ -1,12 +1,16 @@
 {-# LANGUAGE InstanceSigs #-}
+{-# LANGUAGE KindSignatures #-}
 module Composition where
 
 -- cf. HPFFP#963ff
 
-newtype Compose f g a =
+-- |Compose.
+-- A datatype that corresponds to function composition.
+newtype Compose (f :: * -> *) (g :: * -> *) (a :: *) =
     Compose
         { runCompose :: f (g a)
         }
+    deriving (Eq, Show)
 
 -- Composing two functors yields another functor! Ie., functors are closed under
 -- composition.
@@ -23,11 +27,25 @@ instance (Applicative f, Applicative g) => Applicative (Compose f g) where
     -- cf. https://stacktracehq.com/blog/applicative-instance-for-compose/
     (<*>) :: Compose f g (a -> b) -> Compose f g a -> Compose f g b
     (Compose f) <*> (Compose x) = Compose $ (<*>) <$> f <*> x
-      where
-        --tmp0 :: f (g a -> g b)
-        tmp0 = (<*>) <$> f
-        --x :: f (g a)
-        tmp1 = tmp0 <*> x
+
+    -- or
+    -- (Compose k) <*> (Compose x) =
+    --     Compose $
+    --     liftA2 -- here we use the context 'Applicative f'
+    --         ((<*>) :: Applicative h => -- here we use the context 'Applicative g'
+    --                       h (a -> b) -> h a -> h b)
+    --         k   -- :: f  (g (a -> b)))
+    --         x   -- :: f                (g a)
+
+-- Foldables are closed under composition!
+instance (Foldable f, Foldable g) => Foldable (Compose f g) where
+    foldMap :: Monoid m => (a -> m) -> Compose f g a -> m
+    foldMap f (Compose x) = (foldMap . foldMap) f x
+
+-- Traversables are closed under composition!
+instance (Traversable f, Traversable g) => Traversable (Compose f g) where
+    traverse :: Applicative m => (a -> m b) -> Compose f g a -> m (Compose f g b)
+    traverse f (Compose x) = Compose <$> (traverse . traverse) f x
 
 -- There’s no problem composing two arbitrary datatypes that have Monad
 -- instances. However, the result of having done so does not give you a Monad.

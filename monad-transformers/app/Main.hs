@@ -1,6 +1,5 @@
 module Main where
 
-import Crafted
 import Stack
 
 main :: IO ()
